@@ -1,0 +1,11 @@
+Table size
+5-4
+
+Mines
+1-1
+
+Turtle start
+0-1-North
+
+Finish
+4-2

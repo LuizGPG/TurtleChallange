@@ -26,13 +26,9 @@ namespace TurtleChallange
 
             foreach (var movesSequence in movesSequenceList)
             {
-                turtle = new Turtle();
-                turtle.StartPosition = new Position(startPosition.X, startPosition.Y);
-                turtle.ActualPosition = new Position(startPosition.X, startPosition.Y);
-                turtle.ActualDirection = direction;
-
-                var moves = movesSequence.Split(",");
+                turtle = new Turtle(startPosition.X, startPosition.Y, direction);
                 
+                var moves = movesSequence.Split(",");
                 var hitAMine = false;
                 var finishedGame = false;
                 for (int i = 0; i < moves.Length && !hitAMine && !finishedGame; i++)
