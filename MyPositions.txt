@@ -3,9 +3,12 @@ Table size
 
 Mines
 1-1
+1-3
+8-8
+0-1
 
 Turtle start
-0-1-North
+0-1-Nort
 
 Finish
 4-2
