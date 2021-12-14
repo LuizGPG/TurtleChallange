@@ -10,7 +10,7 @@ The files that i used to test ar in the project, that are <a href=https://github
 <a href=https://github.com/LuizGPG/TurtleChallange/blob/master/Moves.txt>Moves</a>. But you can use yours because the project will ask for.
 If you don't put a file in project we will use that ones that I said before.
 
-I hope that was enough to join a big company like a LetsGetChecked and learn more to be better.
+I hope I've shown a little bit of what I know to join a great company like LetsGetChecked and learn more to be better.
 
 <i>Don't write code that guesses the future. Arrange code, so you can adapt to the future when it arrives.</i>
 
