@@ -1,9 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using static TurtleChallange.Entities.EnumEntities;
 
 namespace TurtleChallange.Entities
 {
@@ -11,35 +6,22 @@ namespace TurtleChallange.Entities
     {
         public Position StartPosition { get; set; }
         public Position ActualPosition { get; set; }
-        public Direction ActualDirection { get; set; }
-        public ValidResult Result { get; set; }
+        public DirectionEnum ActualDirection { get; set; }
+        public ValidResultEnum Result { get; set; }
 
         public Turtle()
         {
 
         }
 
-        public Turtle(int x, int y, Direction direction)
+        public Turtle(int x, int y, DirectionEnum direction)
         {
             StartPosition = new Position(x, y);
             ActualPosition = new Position(x, y);
             ActualDirection = direction;
-            Result = ValidResult.StillInDanger;
+            Result = ValidResultEnum.StillInDanger;
         }
-        
-    }
-    public enum ValidResult
-    {
-        StillInDanger,
-        Success,
-        HitAMine,
-    }
 
-    public enum Direction
-    {
-        East,
-        West,
-        South,
-        North
     }
+    
 }

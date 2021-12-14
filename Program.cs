@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TurtleChallange.Entities;
+using static TurtleChallange.Entities.EnumEntities;
 
 namespace TurtleChallange
 {
@@ -10,7 +11,7 @@ namespace TurtleChallange
         public static void Main(string[] args)
         {
             Table table;
-            var turtle = ConfigureChallange(out table);
+            var turtle = Table.ConfigureChallange(out table);
             //ConsoleInformations(table, turtle);
 
             /*Console.WriteLine("What moves do you like to do?");
@@ -19,7 +20,7 @@ namespace TurtleChallange
             var filePath = @"C:\Users\Luiz\Desktop\Projetos\FilesTurtle\Moves.txt";
 
             var movesSequenceList = System.IO.File.ReadAllLines(filePath);
-            var resultList = new List<ValidResult>();
+            var resultList = new List<ValidResultEnum>();
 
             var startPosition = new Position(turtle.StartPosition.X, turtle.StartPosition.Y);
             var direction = turtle.ActualDirection;
@@ -40,50 +41,22 @@ namespace TurtleChallange
                         if (!canMoveForNextPosition)
                             continue;
 
-                        switch (turtle.ActualDirection)
-                        {
-                            case Direction.East:
-                                turtle.ActualPosition.X++;
-                                break;
-                            case Direction.West:
-                                turtle.ActualPosition.X--;
-                                break;
-                            case Direction.South:
-                                turtle.ActualPosition.Y++;
-                                break;
-                            case Direction.North:
-                                turtle.ActualPosition.Y--;
-                                break;
-                        }
+                        turtle.ActualPosition = Direction.NextPosition(turtle.ActualDirection, turtle.ActualPosition);
                         
                         hitAMine = ValidIfIsAMine(turtle, table);
                         finishedGame = ValidIfIsFinished(turtle, table);
                     }
                     else
                     {
-                        switch (turtle.ActualDirection)
-                        {
-                            case Direction.East:
-                                turtle.ActualDirection = Direction.South;
-                                break;
-                            case Direction.West:
-                                turtle.ActualDirection = Direction.North;
-                                break;
-                            case Direction.South:
-                                turtle.ActualDirection = Direction.West;
-                                break;
-                            case Direction.North:
-                                turtle.ActualDirection = Direction.East;
-                                break;
-                        }
+                        turtle.ActualDirection = Direction.NextDirection(turtle.ActualDirection);
                     }
                 }
 
                 if (hitAMine)
-                    turtle.Result = ValidResult.HitAMine;
+                    turtle.Result = ValidResultEnum.HitAMine;
 
                 if (finishedGame)
-                    turtle.Result = ValidResult.Success;
+                    turtle.Result = ValidResultEnum.Success;
 
                 resultList.Add(turtle.Result);
             }
@@ -123,21 +96,8 @@ namespace TurtleChallange
         private static bool ValidNextPosition(Turtle turtle, Table table)
         {
             var position = new Position(turtle.ActualPosition.X, turtle.ActualPosition.Y);
-            switch (turtle.ActualDirection)
-            {
-                case Direction.East:
-                    position.X++;
-                    break;
-                case Direction.West:
-                    position.X--;
-                    break;
-                case Direction.South:
-                    position.Y++;
-                    break;
-                case Direction.North:
-                    position.Y--;
-                    break;
-            }
+
+            position = Direction.NextPosition(turtle.ActualDirection, position);
 
             var xValidPositions = table.Positions.Select(d => d.X).Distinct();
             var yValidPositions = table.Positions.Select(d => d.Y).Distinct();
@@ -182,7 +142,7 @@ namespace TurtleChallange
                 if (item == "Turtle start")
                 {
                     var turtlePositionStart = configurationFile[line + 1].Split("-");
-                    var direction = (Direction)Enum.Parse(typeof(Direction), turtlePositionStart[2]);
+                    var direction = (DirectionEnum)Enum.Parse(typeof(DirectionEnum), turtlePositionStart[2]);
                     turtle = new Turtle(int.Parse(turtlePositionStart[0]), int.Parse(turtlePositionStart[1]), direction);
                 }
 
