@@ -38,8 +38,12 @@ namespace TurtleChallange
                 for (int i = 0; i < moves.Length && !hitAMine && !finishedGame; i++)
                 {
                     var action = moves[i];
-                    if (action == "m" && ValidNextPosition(turtle, table))
+                    if (action == "m")
                     {
+                        var canMoveForNextPosition = ValidNextPosition(turtle, table);
+                        if (!canMoveForNextPosition)
+                            continue;
+
                         switch (turtle.ActualDirection)
                         {
                             case Direction.East:
