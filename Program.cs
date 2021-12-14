@@ -13,11 +13,17 @@ namespace TurtleChallange
         {
             Table table;
             var turtle = Table.ConfigureChallange(out table);
+
+            var canRunTheChallenge = Validations.ValidateIfChallengeWasConfiguredCorrectly(table, turtle);
+
+            if (!canRunTheChallenge)
+                return;
+
             //ConsoleInformations(table, turtle);
 
             /*Console.WriteLine("What moves do you like to do?");
             var filePath = Console.ReadLine();*/
-            
+
             var filePath = @"C:\Users\Luiz\Desktop\Projetos\FilesTurtle\Moves.txt";
 
             var movesSequenceList = System.IO.File.ReadAllLines(filePath);
@@ -48,9 +54,7 @@ namespace TurtleChallange
                         finishedGame = Validations.ValidIfIsFinished(turtle, table);
                     }
                     else
-                    {
                         turtle.ActualDirection = Direction.NextDirection(turtle.ActualDirection);
-                    }
                 }
 
                 if (hitAMine)
@@ -68,6 +72,7 @@ namespace TurtleChallange
                 Console.WriteLine("Resultado of the turtle "+ turtleNumber + " was " + item.ToString());
                 turtleNumber++;
             }
+
             Console.WriteLine("---------------------");
             Console.WriteLine("Finishing game!!");
 

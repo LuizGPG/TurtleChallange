@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TurtleChallange.Shared;
 using static TurtleChallange.Entities.EnumEntities;
 
 namespace TurtleChallange.Entities
@@ -34,8 +35,8 @@ namespace TurtleChallange.Entities
 
                 if (item == TableSize)
                 {
-                    var tableSize = configurationFile[line + 1].Split("-");
-                    table = Create(int.Parse(tableSize[0]), int.Parse(tableSize[1]));
+                    var tableSize = Helper.GetValueNextLineToInt(configurationFile, line);
+                    table = Create(tableSize[0], tableSize[1]);
                     line++;
                     continue;
                 }
@@ -45,24 +46,20 @@ namespace TurtleChallange.Entities
                     table.MinesPositions = new List<Position>();
                     while (configurationFile[line + 1] != string.Empty)
                     {
-                        var minePosition = configurationFile[line + 1].Split("-");
-                        table.MinesPositions.Add(Position.GetPositionFromString(minePosition));
+                        table.MinesPositions.Add(Position.GetPositionFromString(Helper.GetValueNextLine(configurationFile, line)));
                         line++;
                     }
                 }
 
                 if (item == TurtleStart)
                 {
-                    var turtlePositionStart = configurationFile[line + 1].Split("-");
-                    var direction = (DirectionEnum)Enum.Parse(typeof(DirectionEnum), turtlePositionStart[2]);
+                    var turtlePositionStart = Helper.GetValueNextLine(configurationFile, line);
+                    var direction = Direction.GetDirection(turtlePositionStart);
                     turtle = new Turtle(Position.GetPositionFromString(turtlePositionStart), direction);
                 }
 
                 if (item == Finish)
-                {
-                    var finishPosition = configurationFile[line + 1].Split("-");
-                    table.FinishPosition = new Position(int.Parse(finishPosition[0]), int.Parse(finishPosition[1]));
-                }
+                    table.FinishPosition = Position.GetPositionFromString(Helper.GetValueNextLine(configurationFile, line));
 
                 line++;
             }
@@ -79,5 +76,6 @@ namespace TurtleChallange.Entities
                 Positions = Position.TablePositions(sizeX, sizeY)
             };
         }
+
     }
 }

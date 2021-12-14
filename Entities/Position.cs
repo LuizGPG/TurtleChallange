@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TurtleChallange.Shared;
 
 namespace TurtleChallange.Entities
 {
@@ -19,7 +20,8 @@ namespace TurtleChallange.Entities
 
         public static Position GetPositionFromString(string[] position)
         {
-            return new Position(int.Parse(position[0]), int.Parse(position[1]));
+            var values = Helper.GetValueNextLineToInt(position);
+            return new Position(values[0], values[1]);
         }
 
         public static List<Position> TablePositions(int sizeX, int sizeY)

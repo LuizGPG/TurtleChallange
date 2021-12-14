@@ -1,4 +1,6 @@
-﻿namespace TurtleChallange.Entities
+﻿using System;
+
+namespace TurtleChallange.Entities
 {
     public class EnumEntities
     {
@@ -19,6 +21,19 @@
 
         public static class Direction
         {
+            public static DirectionEnum GetDirection(string[] turtlePositionStart)
+            {
+                try
+                {
+                    return (DirectionEnum)Enum.Parse(typeof(DirectionEnum), turtlePositionStart[2]);
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Invalid direction to start the turtle!! We will configure with a North directition!");
+                    Console.WriteLine("------------------------------------------------");
+                    return DirectionEnum.North;   
+                }
+            }
             public static DirectionEnum NextDirection(DirectionEnum atualDirection)
             {
                 switch (atualDirection)
