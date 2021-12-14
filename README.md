@@ -7,7 +7,7 @@ So I was based in this file to create this project: https://s3-eu-west-1.amazona
 
 To run the project you just need clone it and run in VisualStudio.
 The files that i used to test ar in the project, that are <a href=https://github.com/LuizGPG/TurtleChallange/blob/master/MyPositions.txt>MyPositions</a> and 
-<https://github.com/LuizGPG/TurtleChallange/blob/master/Moves.txt>Moves</a>. But you can use yours because the project will ask for.
+<a href=https://github.com/LuizGPG/TurtleChallange/blob/master/Moves.txt>Moves</a>. But you can use yours because the project will ask for.
 If you don't put a file in project we will use that ones that I said before.
 
 I hope that was enough to join a big company like a LetsGetChecked and learn more to be better.
