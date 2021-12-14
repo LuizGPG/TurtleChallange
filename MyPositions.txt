@@ -8,7 +8,7 @@ Mines
 0-1
 
 Turtle start
-0-1-Nort
+0-1-North
 
 Finish
 4-2
