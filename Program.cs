@@ -21,10 +21,8 @@ namespace TurtleChallange
 
             //ConsoleInformations(table, turtle);
 
-            /*Console.WriteLine("What moves do you like to do?");
-            var filePath = Console.ReadLine();*/
-
-            var filePath = @"C:\Users\Luiz\Desktop\Projetos\FilesTurtle\Moves.txt";
+            Console.WriteLine("What moves do you like to do?");
+            var filePath = Console.ReadLine();
 
             var movesSequenceList = System.IO.File.ReadAllLines(filePath);
             var resultList = new List<ValidResultEnum>();

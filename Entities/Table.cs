@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using TurtleChallange.Shared;
 using static TurtleChallange.Entities.EnumEntities;
 
@@ -20,10 +21,9 @@ namespace TurtleChallange.Entities
 
         public static Turtle ConfigureChallange(out Table table)
         {
-            /*Console.WriteLine("What file should I read to configure the game?");
-            var filePath = Console.ReadLine();*/
-            var filePath = @"C:\Users\Luiz\Desktop\Projetos\FilesTurtle\MyPositions.txt";
-            var configurationFile = System.IO.File.ReadAllLines(filePath);
+            Console.WriteLine("What file should I read to configure the game?");
+            var filePath = Console.ReadLine();
+            var configurationFile = File.ReadAllLines(filePath);
 
             var turtle = new Turtle();
             table = new Table();
