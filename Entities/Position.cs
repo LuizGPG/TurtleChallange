@@ -17,6 +17,11 @@ namespace TurtleChallange.Entities
             Y = y;
         }
 
+        public static Position GetPositionFromString(string[] position)
+        {
+            return new Position(int.Parse(position[0]), int.Parse(position[1]));
+        }
+
         public static List<Position> TablePositions(int sizeX, int sizeY)
         {
             var positions = new List<Position>();

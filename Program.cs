@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TurtleChallange.Entities;
+using TurtleChallange.Shared;
 using static TurtleChallange.Entities.EnumEntities;
 
 namespace TurtleChallange
@@ -27,8 +28,8 @@ namespace TurtleChallange
 
             foreach (var movesSequence in movesSequenceList)
             {
-                turtle = new Turtle(startPosition.X, startPosition.Y, direction);
-                
+                turtle = new Turtle(new Position(startPosition.X, startPosition.Y), direction);
+
                 var moves = movesSequence.Split(",");
                 var hitAMine = false;
                 var finishedGame = false;
@@ -37,14 +38,14 @@ namespace TurtleChallange
                     var action = moves[i];
                     if (action == "m")
                     {
-                        var canMoveForNextPosition = ValidNextPosition(turtle, table);
+                        var canMoveForNextPosition = Validations.ValidNextPosition(turtle, table);
                         if (!canMoveForNextPosition)
                             continue;
 
                         turtle.ActualPosition = Direction.NextPosition(turtle.ActualDirection, turtle.ActualPosition);
                         
-                        hitAMine = ValidIfIsAMine(turtle, table);
-                        finishedGame = ValidIfIsFinished(turtle, table);
+                        hitAMine = Validations.ValidIfIsAMine(turtle, table);
+                        finishedGame = Validations.ValidIfIsFinished(turtle, table);
                     }
                     else
                     {
@@ -71,93 +72,6 @@ namespace TurtleChallange
             Console.WriteLine("Finishing game!!");
 
         }
-
-        private static bool ValidIfIsAMine(Turtle turtle, Table table)
-        {
-            var hitAMine = false;
-            var turtlePosition = turtle.ActualPosition;
-            foreach (var minePosition in table.MinesPositions)
-            {
-                if (!hitAMine)
-                    hitAMine = turtlePosition.X == minePosition.X && turtlePosition.Y == minePosition.Y;
-            }
-
-            return hitAMine;
-        }
-
-        private static bool ValidIfIsFinished(Turtle turtle, Table table)
-        {
-            var turtlePosition = turtle.ActualPosition;
-            var finalPosition = table.FinishPosition;
-            
-            return turtlePosition.X == finalPosition.X && turtlePosition.Y == finalPosition.Y;
-        }
-
-        private static bool ValidNextPosition(Turtle turtle, Table table)
-        {
-            var position = new Position(turtle.ActualPosition.X, turtle.ActualPosition.Y);
-
-            position = Direction.NextPosition(turtle.ActualDirection, position);
-
-            var xValidPositions = table.Positions.Select(d => d.X).Distinct();
-            var yValidPositions = table.Positions.Select(d => d.Y).Distinct();
-            
-            return xValidPositions.Contains(position.X) && yValidPositions.Contains(position.Y);
-        }
-
-        private static Turtle ConfigureChallange(out Table table)
-        {
-            /*Console.WriteLine("What file should I read to configure the game?");
-            var filePath = Console.ReadLine();*/
-            var filePath = @"C:\Users\Luiz\Desktop\Projetos\FilesTurtle\MyPositions.txt";
-            var configurationFile = System.IO.File.ReadAllLines(filePath);
-
-            var turtle = new Turtle();
-            table = new Table();
-            for (int line = 0; line < configurationFile.Length; line++)
-            {
-                var item = configurationFile[line];
-                if (item == string.Empty)
-                    continue;
-
-                if (item == "Table size")
-                {
-                    var tableSize = configurationFile[line + 1].Split("-");
-                    table = Table.Create(int.Parse(tableSize[0]), int.Parse(tableSize[1]));
-                    line++;
-                    continue;
-                }
-
-                if (item == "Mines")
-                {
-                    table.MinesPositions = new List<Position>();
-                    while (configurationFile[line + 1] != string.Empty)
-                    {
-                        var minePosition = configurationFile[line + 1].Split("-");
-                        table.MinesPositions.Add(new Position(int.Parse(minePosition[0]), int.Parse(minePosition[1])));
-                        line++;
-                    }
-                }
-
-                if (item == "Turtle start")
-                {
-                    var turtlePositionStart = configurationFile[line + 1].Split("-");
-                    var direction = (DirectionEnum)Enum.Parse(typeof(DirectionEnum), turtlePositionStart[2]);
-                    turtle = new Turtle(int.Parse(turtlePositionStart[0]), int.Parse(turtlePositionStart[1]), direction);
-                }
-
-                if(item == "Finish")
-                {
-                    var finishPosition = configurationFile[line + 1].Split("-");
-                    table.FinishPosition  = new Position(int.Parse(finishPosition[0]), int.Parse(finishPosition[1]));
-                }
-
-                line++;
-            }
-            
-            return turtle;
-        }
-
         private static void ConsoleInformations(Table table, Turtle turtle)
         {
             Console.WriteLine("----------------------------------------------");

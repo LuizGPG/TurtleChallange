@@ -14,10 +14,10 @@ namespace TurtleChallange.Entities
 
         }
 
-        public Turtle(int x, int y, DirectionEnum direction)
+        public Turtle(Position position, DirectionEnum direction)
         {
-            StartPosition = new Position(x, y);
-            ActualPosition = new Position(x, y);
+            StartPosition = position;
+            ActualPosition = position;
             ActualDirection = direction;
             Result = ValidResultEnum.StillInDanger;
         }

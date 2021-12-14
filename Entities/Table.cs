@@ -46,7 +46,7 @@ namespace TurtleChallange.Entities
                     while (configurationFile[line + 1] != string.Empty)
                     {
                         var minePosition = configurationFile[line + 1].Split("-");
-                        table.MinesPositions.Add(new Position(int.Parse(minePosition[0]), int.Parse(minePosition[1])));
+                        table.MinesPositions.Add(Position.GetPositionFromString(minePosition));
                         line++;
                     }
                 }
@@ -55,7 +55,7 @@ namespace TurtleChallange.Entities
                 {
                     var turtlePositionStart = configurationFile[line + 1].Split("-");
                     var direction = (DirectionEnum)Enum.Parse(typeof(DirectionEnum), turtlePositionStart[2]);
-                    turtle = new Turtle(int.Parse(turtlePositionStart[0]), int.Parse(turtlePositionStart[1]), direction);
+                    turtle = new Turtle(Position.GetPositionFromString(turtlePositionStart), direction);
                 }
 
                 if (item == Finish)
