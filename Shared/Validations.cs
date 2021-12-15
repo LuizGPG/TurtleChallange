@@ -31,8 +31,8 @@ namespace TurtleChallange.Shared
 
             if (!canRunChallage)
             {
-                Console.WriteLine("Can't not inicialize the challange!");
-                Console.WriteLine("------------------------------------------------");
+                Console.WriteLine(Messages.CantInicialize);
+                Console.WriteLine(Messages.LineWrap);
             }
             else
             {
@@ -60,8 +60,8 @@ namespace TurtleChallange.Shared
             {
                 if (!listOfXPositions.Contains(mine.X) && !listOfYPositions.Contains(mine.Y))
                 {
-                    Console.WriteLine("The mine of position " + mine.X + "-" + mine.Y + " can't not fit in the table!");
-                    Console.WriteLine("------------------------------------------------");
+                    Console.WriteLine(Messages.MinePositionWrong + mine.X + "-" + mine.Y + Messages.CantFit);
+                    Console.WriteLine(Messages.LineWrap);
                 }
             }
         }
@@ -77,8 +77,8 @@ namespace TurtleChallange.Shared
 
             if (!hasDifferentPosition)
             {
-                Console.WriteLine("Can't not inicialize the challange because your turtle are in the same position that a bomb!");
-                Console.WriteLine("------------------------------------------------");
+                Console.WriteLine(Messages.BombAndTurtleSamePosition);
+                Console.WriteLine(Messages.LineWrap);
             }
 
             return hasDifferentPosition;

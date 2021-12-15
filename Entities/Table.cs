@@ -21,9 +21,10 @@ namespace TurtleChallange.Entities
 
         public static Turtle ConfigureChallange(out Table table)
         {
-            Console.WriteLine("What file should I read to configure the game?");
+            Console.WriteLine(Messages.ConfigureFileQuestion);
             var filePath = Console.ReadLine();
-            var configurationFile = File.ReadAllLines(filePath);
+            var configurationFile = Helper.ReadFile(filePath);
+            Console.WriteLine(Messages.LineWrap);
 
             var turtle = new Turtle();
             table = new Table();

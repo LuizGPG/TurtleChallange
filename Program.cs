@@ -21,10 +21,11 @@ namespace TurtleChallange
 
             //ConsoleInformations(table, turtle);
 
-            Console.WriteLine("What moves do you like to do?");
+            Console.WriteLine(Messages.MovesFileQuestion);
             var filePath = Console.ReadLine();
+            Console.WriteLine(Messages.LineWrap);
 
-            var movesSequenceList = System.IO.File.ReadAllLines(filePath);
+            var movesSequenceList = Helper.ReadFile(filePath);
             var resultList = new List<ValidResultEnum>();
 
             var startPosition = new Position(turtle.StartPosition.X, turtle.StartPosition.Y);
@@ -40,7 +41,7 @@ namespace TurtleChallange
                 for (int i = 0; i < moves.Length && !hitAMine && !finishedGame; i++)
                 {
                     var action = moves[i];
-                    if (action == "m")
+                    if (action == Messages.Move)
                     {
                         var canMoveForNextPosition = Validations.ValidNextPosition(turtle, table);
                         if (!canMoveForNextPosition)
@@ -51,7 +52,7 @@ namespace TurtleChallange
                         hitAMine = Validations.ValidIfIsAMine(turtle, table);
                         finishedGame = Validations.ValidIfIsFinished(turtle, table);
                     }
-                    else
+                    else if(action == Messages.Rotate)
                         turtle.ActualDirection = Direction.NextDirection(turtle.ActualDirection);
                 }
 
@@ -67,12 +68,12 @@ namespace TurtleChallange
             var turtleNumber = 1;
             foreach (var item in resultList)
             {
-                Console.WriteLine("Resultado of the turtle "+ turtleNumber + " was " + item.ToString());
+                Console.WriteLine(Messages.ResultFor+ turtleNumber + Messages.Was + item.ToString());
                 turtleNumber++;
             }
 
-            Console.WriteLine("---------------------");
-            Console.WriteLine("Finishing game!!");
+            Console.WriteLine(Messages.LineWrap);
+            Console.WriteLine(Messages.FinishGame);
 
         }
         private static void ConsoleInformations(Table table, Turtle turtle)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,12 +9,25 @@ namespace TurtleChallange.Shared
 {
     public static class Helper
     {
+
+        public static string[] ReadFile(string path)
+        {
+            try
+            {
+                return File.ReadAllLines(path);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine(Messages.ErroToReadFile);
+                Console.WriteLine(Messages.LineWrap);
+                throw;
+            }
+        }
         public static string[] GetValueNextLine(string[] configurationFile, int line)
         {
             try
             {
                 return configurationFile[line + 1].Split("-");
-
             }
             catch (Exception)
             {
@@ -50,9 +64,9 @@ namespace TurtleChallange.Shared
 
         private static void ErrorWithValues()
         {
-            Console.WriteLine("Ops! We got some wront position! Make sure that all positions that you sent are with this pattern:");
-            Console.WriteLine("Ex: 1-2 (X-Y)");
-            Console.WriteLine("------------------------------------------------");
+            Console.WriteLine(Messages.WrongPosition);
+            Console.WriteLine(Messages.SampleOfPosition);
+            Console.WriteLine(Messages.LineWrap);
         }
     }
 }

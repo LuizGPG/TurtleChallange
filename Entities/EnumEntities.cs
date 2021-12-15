@@ -1,4 +1,5 @@
 ﻿using System;
+using TurtleChallange.Shared;
 
 namespace TurtleChallange.Entities
 {
@@ -29,8 +30,8 @@ namespace TurtleChallange.Entities
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine("Invalid direction to start the turtle!! We will configure with a North directition!");
-                    Console.WriteLine("------------------------------------------------");
+                    Console.WriteLine(Messages.InvalidDirection);
+                    Console.WriteLine(Messages.LineWrap);
                     return DirectionEnum.North;   
                 }
             }
